@@ -11,7 +11,7 @@ interface ProductState {
 const initialState: ProductState = {
   products: null,
   loading: false,
-  error: null,
+  error: null
 };
 
 const productSlice = createSlice({
@@ -32,7 +32,7 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch products';
       });
-  },
+  }
 });
 
 export default productSlice.reducer;

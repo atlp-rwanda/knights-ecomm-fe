@@ -14,13 +14,7 @@ const ProductList: React.FC = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  return (
-    <ul>
-      {products?.data?.products?.map((product: any) => (
-        <li key={product.id}>{product.name}</li>
-      ))}
-    </ul>
-  );
+  return <ul>{products?.data?.products?.map((product) => <li key={product.id}>{product.name}</li>)}</ul>;
 };
 
 export default ProductList;
