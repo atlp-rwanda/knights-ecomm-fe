@@ -1,11 +1,11 @@
-import Welcome from '../components/welcome'
+import Welcome from '../components/welcome';
 
 const WelcomePage = () => {
-    return (
-        <>
-          <Welcome/>
-        </>
-      );
+  return (
+    <>
+      <Welcome />
+    </>
+  );
 };
 
 export default WelcomePage;
