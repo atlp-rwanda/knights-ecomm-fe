@@ -1,18 +1,15 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './styles/App.css';
-import WelcomePage from './pages/welcomePage';
+import Layout from './layout/Layout';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <WelcomePage />
-    }
-  ]);
+
   return (
-    <div>
-      <RouterProvider router={router} />
-    </div>
+    <Provider store={store}>
+       <Layout/>   
+    </Provider>
+  
   );
 }
 
