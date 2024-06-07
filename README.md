@@ -1,30 +1,67 @@
-# React + TypeScript + Vite
+# E-commerce Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+This repository contains the frontend application for the E-commerce project, providing user interfaces and interactions. It integrates with the backend APIs to power functionalities such as product browsing, user authentication, and order processing.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Technologies Used
 
-## Expanding the ESLint configuration
+- Languages:
+  - TypeScript
+  - JavaScript
+- Package Manager:
+  - npm
+- Framework:
+  - React
+- Styling:
+  - Tailwind
+- State Management:
+  - Redux
+- Testing:
+  - Vitest
+  - React Testing Library
+- Build Tools:
+  - vite
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Getting Started
 
-- Configure the top-level `parserOptions` property like this:
+- Clone this project on your local machine
+  ```bash
+  git clone https://github.com/atlp-rwanda/knights-ecomm-fe.git
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname
-  }
-};
-```
+  ```
+- Navigate to project directory
+  ```
+  cd knights-ecomm-fe
+  ```
+- Install dependencies
+  ```
+  npm install
+  ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Run The Service
+
+- Start developer server
+  ```
+  npm run dev
+  ```
+
+## Testing
+
+- Run tests
+  ```
+  npm run test
+  ```
+
+
+## Authors
+
+- [Maxime Mizero](https://github.com/maxCastro1)
+- [Elie Kuradusenge](https://github.com/elijahladdie)
+- [Byishimo Teto Joseph](https://github.com/MC-Knight)
+- [Grace Uwicyeza](https://github.com/UwicyezaG)
+- [Iragena Aime Divin](https://github.com/aimedivin)
+- [Gloria Niyonkuru Sinseswa](https://github.com/GSinseswa721)
+- [Jean Paul Elisa Ndevu](https://github.com/Ndevu12)
+- [Gisa Mugisha Caleb Pacifique](https://github.com/Calebgisa72)
+
