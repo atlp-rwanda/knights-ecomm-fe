@@ -14,5 +14,8 @@ describe('App', () => {
 
     const welcomePageElement = screen.getByText('Welcome to Knights ecommerce');
     expect(welcomePageElement).toBeInTheDocument();
+
+    const paragraphElement = screen.getByText('Loading...');
+    expect(paragraphElement).toBeInTheDocument();
   });
 });
