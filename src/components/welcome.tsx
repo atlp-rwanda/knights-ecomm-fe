@@ -1,13 +1,27 @@
 import React from 'react';
-import logo from '../../public/knights logo.svg';
-import ProductList from './ProductList';
+import Popup from './Popups/Popup';
+import CouponForm from './Forms/CouponForm';
 
-const Welcome = () => {
+const Welcome: React.FC = () => {
+  const handleSubmit = () => {
+    console.log('Submit button clicked!');
+  };
+
+  const handleClose = () => {
+    console.log('Popup closed!');
+  };
+
   return (
-    <div>
-      <h1>Welcome to Knights ecommerce</h1>
-      <img className="logo" src={logo} alt="Knights Logo" />
-      <ProductList />
+    <div className="App">
+      <Popup
+        trigger={<button>Trigger me</button>}
+        title="Create a Coupon"
+        submitText="Create a Coupon"
+        closeText="Create a Coupon"
+        body={<CouponForm />}
+        onSubmit={handleSubmit}
+        onClose={handleClose}
+      />
     </div>
   );
 };
