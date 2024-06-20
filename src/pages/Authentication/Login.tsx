@@ -4,13 +4,24 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { LoginData } from '../../types/registerType';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../redux/store';
-import { registerUser } from '../../redux/actions/registerAction';
-import { resetState } from '../../redux/reducers/registerReducer';
 import toast from 'react-hot-toast';
 import { loginUser } from '../../redux/actions/loginAction';
+import google from '../../images/google.png';
+import { setCredentials } from '../../redux/reducers/authReducer';
+import { Link } from 'react-router-dom';
+import { resetState } from '../../redux/reducers/loginReducer';
+
+export interface DecodedToken {
+  id: string;
+  email: string;
+  role: string;
+  iat: number;
+  exp: number;
+}
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -19,11 +30,9 @@ function Login() {
   } = useForm<LoginData>();
 
   const dispatch = useDispatch<AppDispatch>();
-  const { register: registerResponse, loading, error } = useSelector((state: RootState) => state.register);
+  const { login: loginResponse, loading, error } = useSelector((state: RootState) => state.login);
 
   const onSubmit: SubmitHandler<LoginData> = (userData: LoginData) => {
-    console.log(userData);
-
     dispatch(loginUser(userData));
   };
 
@@ -32,15 +41,20 @@ function Login() {
       toast.error(error);
       dispatch(resetState());
     }
-    if (registerResponse) {
-      toast.success(registerResponse.data.message);
+    if (loginResponse) {
+      toast.success(loginResponse.data!.message);
       reset();
+      dispatch(setCredentials(loginResponse.data?.token));
       dispatch(resetState());
     }
-  }, [error, registerResponse, dispatch, reset]);
+  }, [error, loginResponse, dispatch, reset]);
+
+  const googleAuth = () => {
+    window.open(`${import.meta.env.VITE_APP_API_URL}/user/google-auth`, '_self');
+  };
 
   return (
-    <div className="min-h-[85vh] h-auto w-full flex items-center justify-center py-10 px-4  bg-transparent1">
+    <div className="min-h-[85vh] h-auto w-full flex items-center justify-center py-10 px-4 bg-transparent1">
       <form
         method="post"
         action="/login"
@@ -51,7 +65,7 @@ function Login() {
 
         <div className="w-full flex flex-col items-start justify-start gap-y-1">
           <p className="text-black1 text-base">Email Address</p>
-          <div className="w-full min-h-[50px] flex items-center justify-between gap-x-1 px-4 py-2 border border-grey1 bg-white">
+          <div className="w-full min-h-[50px] flex items-center justify-between  gap-x-1 px-4 py-2  text-baseBlack border border-grey1 bg-white">
             <input
               className="w-full h-[100%] border-none outline-none bg-white text-grey2 text-base"
               type="email"
@@ -59,11 +73,12 @@ function Login() {
               {...register('email', { required: true })}
             />
           </div>
+          {errors.email && <span className="text-orange text-xs">Email is required</span>}
         </div>
 
         <div className="w-full flex flex-col items-start justify-start gap-y-1">
           <p className="text-black1 text-base">Password</p>
-          <div className="w-full min-h-[50px] flex items-center justify-between gap-x-1 px-4 py-2 border border-grey1 bg-white">
+          <div className="w-full min-h-[50px] flex items-center justify-between gap-x-1  px-4 py-2 border border-grey1 bg-white">
             <input
               className="w-full h-[100%] border-none outline-none bg-white text-grey2 text-base"
               type={showPassword ? 'text' : 'password'}
@@ -72,35 +87,51 @@ function Login() {
             />
             {showPassword ? (
               <EyeOff
+                data-testid="eye-icon"
                 strokeWidth={1.5}
                 className="text-grey2 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
               />
             ) : (
               <Eye
+                data-testid="eye-icon"
                 strokeWidth={1.5}
                 className="text-grey2 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
               />
             )}
           </div>
+          {errors.password && <span className="text-orange text-xs">Password is required</span>}
         </div>
         <p className="text-small w-full text-black1 text-right">
           <a href="/reset-password"> Forgot password? </a>
         </p>
         <button
-          type={loading ? 'button' : 'submit'}
-          className={`w-full min-h-[50px] flex items-center justify-center bg-primary text-white text-2xl font-medium mt-2 ${loading ? 'cursor-not-allowed' : 'cu'}`}
+          type="submit"
+          disabled={loading}
+          className={`w-full min-h-[50px] flex items-center justify-center rounded-3xl bg-primary text-white text-lg font-medium mt-2 ${loading ? 'cursor-not-allowed' : 'cu'}`}
         >
           {loading ? 'Loading...' : 'Login'}
         </button>
 
         <p className="text-small  text-grey2">
           {"Don't have an account? "}
-          <a href="/register" className="ml-1 text-orange">
+          <Link to="/register" className="ml-1 text-orange">
             Signup here
-          </a>
+          </Link>
         </p>
+
+        <div className="w-full flex flex-col items-center text-small gap-y-2 text-grey2">
+          <span>or</span>
+          <button
+            type="button"
+            onClick={googleAuth}
+            className="w-full flex justify-center gap-x-3 items-center rounded-3xl min-h-[50px] ml-1 text-orange border  border-primary"
+          >
+            <img src={google} alt="google-logo" className="w-6 object" />
+            <span className="text-baseBlack text-base ">Continue with Google</span>
+          </button>
+        </div>
       </form>
     </div>
   );
