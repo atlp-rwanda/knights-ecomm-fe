@@ -108,7 +108,10 @@ const DashboardNewProducts: React.FC = () => {
   return (
     <div className="flex bg-[#eef5ff] w-full h-full text-black p-8 flex-col items-start">
       <p className="font-bold text-2xl">Add New Product</p>
-      <p>Home &gt; Products &gt; #New</p>
+      <p>
+        <Link to={'/vendor/dashboard'}>Dashboard</Link> &gt; <Link to={'/vendor/dashboard/products'}>Products</Link>{' '}
+        &gt; #New
+      </p>
       <div className="bg-white border-[1px] border-[#7c7c7c] rounded-2xl mt-8 w-full p-8">
         <div className="w-full flex gap-8">
           <div className="w-1/2 flex flex-col gap-4">
@@ -222,7 +225,7 @@ const DashboardNewProducts: React.FC = () => {
             {loading ? 'Loading...' : ' New Product'}
           </button>
           <Link
-            to={'/dashboard/products'}
+            to={'/vendor/dashboard/products'}
             className="px-8 py-4 rounded-lg text-white bg-[#7c7c7c] hover:scale-105 transition-all"
           >
             Back

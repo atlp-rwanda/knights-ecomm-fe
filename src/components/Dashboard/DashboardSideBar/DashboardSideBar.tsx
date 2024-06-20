@@ -15,9 +15,10 @@ interface DashboardSideBarProps {
 const DashboardSideBar: React.FC<DashboardSideBarProps> = ({ openNav, setOpenNav }) => {
   return (
     <div
+      data-testid="dashboard-sidebar"
       className={`fixed inset-y-0 left-0 z-20 bg-white transition-transform transform ${openNav ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:relative lg:z-10 lg:flex flex-col gap-8 w-[260px] p-4 min-h-screen border-r-[1px] border-[#7c7c7c] text-black ease-in-out duration-300`}
     >
-      <NavLink to="/dashboard" className="text-4xl font-bold text-[#070f2b]">
+      <NavLink to="/vendor/dashboard" className="text-4xl font-bold text-[#070f2b]">
         Knight
       </NavLink>
       <button onClick={() => setOpenNav(false)} className="lg:hidden absolute right-4 top-6">

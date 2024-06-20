@@ -26,7 +26,7 @@ const DashboardSingleProduct: React.FC = () => {
       <div className="w-full my-8 flex flex-col items-center justify-center gap-8">
         <p className="py-2 px-4 bg-[#E7EBEF] rounded text-black ">The product is expired</p>
         <Link
-          to={'/dashboard/products'}
+          to={'/vendor/dashboard/products'}
           className="px-8 py-4 bg-[#070F2B] font-semibold text-white rounded-lg flex gap-4 items-center hover:scale-105 transition-all duration-300 ease-in-out w-max "
         >
           <MoveLeft /> Back
@@ -37,7 +37,10 @@ const DashboardSingleProduct: React.FC = () => {
   return (
     <div className="flex bg-[#eef5ff] w-full h-full text-black p-8 flex-col items-start">
       <p className="font-bold text-2xl">Product Details</p>
-      <p>Home &gt; Products &gt; {product?.name}</p>
+      <p>
+        <Link to={'/vendor/dashboard'}>Dashboard</Link> &gt; <Link to={'/vendor/dashboard/products'}>Products</Link>{' '}
+        &gt; {product?.name}
+      </p>
       <div className="bg-white border-[1px] border-[#7c7c7c] rounded-2xl mt-8 w-full p-8 flex flex-col gap-8">
         <Link
           to={'update'}

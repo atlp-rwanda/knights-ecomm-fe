@@ -43,7 +43,9 @@ const DashboardProducts: React.FC = () => {
       <div className="flex gap-4 justify-between">
         <div>
           <h1 className="font-bold text-2xl ">All Products</h1>
-          <p>Home &gt; Products</p>
+          <p>
+            <Link to={'/vendor/dashboard'}>Dashboard</Link> &gt; <Link to={'/vendor/dashboard/products'}>Products</Link>
+          </p>
         </div>
         <Link
           to={'new'}

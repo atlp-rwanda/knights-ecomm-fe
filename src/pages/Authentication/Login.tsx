@@ -14,7 +14,7 @@ import { resetState } from '../../redux/reducers/loginReducer';
 export interface DecodedToken {
   id: string;
   email: string;
-  role: string;
+  userType: string;
   iat: number;
   exp: number;
 }

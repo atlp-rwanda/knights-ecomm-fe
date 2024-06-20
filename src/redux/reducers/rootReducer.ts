@@ -5,10 +5,10 @@ import registerReducer from './registerReducer';
 import verifyEmailReducer from './verifyEmailReducer';
 import loginReducer from './loginReducer';
 import authReducer from './authReducer';
-
 import productSliceReducer from './getVendorProductsReducer';
 import { productCreateReducer } from './createProductReducer';
 import singleProductReducer from './getSingleProductReducer';
+
 const rootReducer = combineReducers({
   auth: authReducer,
   register: registerReducer,
