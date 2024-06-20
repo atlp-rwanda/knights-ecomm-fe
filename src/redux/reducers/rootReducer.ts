@@ -9,7 +9,7 @@ import passwordReducer from './passwordResetReducer';
 import { productCreateReducer } from './createProductReducer';
 import getSingleProductReducer from './getSingleProductReducer';
 import productSliceReducer from './getVendorProductsReducer';
-
+import updateProductReducer from './updateProductReducer';
 const rootReducer = combineReducers({
   auth: authReducer,
   currentUser: userReducer,
@@ -20,8 +20,8 @@ const rootReducer = combineReducers({
   productCreate: productCreateReducer,
   getVendorProduct: productSliceReducer,
   singleProduct: getSingleProductReducer,
-  password: passwordReducer
+  password: passwordReducer,
+  updateProduct: updateProductReducer
 });
-
 export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

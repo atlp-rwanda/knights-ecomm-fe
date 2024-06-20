@@ -19,20 +19,26 @@ import DashboarInnerLayout from '../layout/DashboarInnerLayout';
 import DashboardProducts from '../components/Products/DashboardProducts/DashboardProducts';
 import DashboardSingleProduct from '../components/Products/DashboardSingleProduct/DashboardSingleProduct';
 import DashboardNewProducts from '../components/Products/DashboardNewProducts/DashboardNewProducts';
+
 import MainLayout from '../layout/MainLayout';
+import DashboardEditProducts from '../components/Products/DashboardEditProducts/DashboardEditProducts';
 
 const Router = () => {
   const { userToken } = useSelector((state: RootState) => state.auth);
   const { decodedToken } = useJwt<DecodedToken>(userToken);
-
   const isAdmin = decodedToken?.role.toLowerCase() === 'admin';
   const isVendor = decodedToken?.role.toLowerCase() === 'vendor';
   const isBuyer = decodedToken?.role.toLowerCase() === 'buyer';
-
   return (
     <Routes>
-      <Route path="/" element={<WelcomePage />} />
-
+      <Route
+        path="/"
+        element={
+          <MainLayout>
+            <WelcomePage />
+          </MainLayout>
+        }
+      />
       <Route
         path="/register"
         element={
@@ -42,7 +48,6 @@ const Router = () => {
           </MainLayout>
         }
       />
-
       <Route
         path="/register-vendor"
         element={
@@ -52,7 +57,6 @@ const Router = () => {
           </MainLayout>
         }
       />
-
       <Route
         path="/verify-email/:token"
         element={
@@ -62,7 +66,6 @@ const Router = () => {
           </MainLayout>
         }
       />
-
       <Route
         path="/forgot-password"
         element={
@@ -75,7 +78,6 @@ const Router = () => {
           </MainLayout>
         }
       />
-
       <Route
         path="/reset-password"
         element={
@@ -88,7 +90,6 @@ const Router = () => {
           </MainLayout>
         }
       />
-
       <Route
         path="/login"
         element={
@@ -138,12 +139,12 @@ const Router = () => {
       <Route path="/vendor/dashboard" element={<DashboardLayout />}>
         <Route path="products" element={<DashboarInnerLayout />}>
           <Route path="" element={<DashboardProducts />} />
-          <Route path=":id" element={<DashboardSingleProduct />} />
           <Route path="new" element={<DashboardNewProducts />} />
+          <Route path=":id" element={<DashboardSingleProduct />} />
+          <Route path=":id/edit" element={<DashboardEditProducts />} />
         </Route>
       </Route>
     </Routes>
   );
 };
-
 export default Router;

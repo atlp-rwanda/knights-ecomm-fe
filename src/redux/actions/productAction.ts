@@ -1,46 +1,60 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Dispatch } from 'redux';
-import { ProductActionTypes, ProductActions, ResetProductStateAction } from '../types/productTypes';
 import { Product, VendorProduct } from '../../types/productTypes';
-
+import { ProductActionTypes, ResetProductStateAction } from '../types/productTypes';
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/product/all`);
   return response.data;
 });
-
-export const createProduct = (formData: FormData) => async (dispatch: Dispatch<ProductActions>) => {
-  try {
-    dispatch({ type: ProductActionTypes.CREATE_PRODUCT_REQUEST });
-
-    const tokenString = localStorage.getItem('userToken');
-    if (!tokenString) {
-      throw new Error('Token not found');
-    }
-
-    const { token } = JSON.parse(tokenString);
-
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`
+export const createProduct = createAsyncThunk(
+  'products/createProduct',
+  async (formData: FormData, { rejectWithValue }) => {
+    try {
+      const tokenString = localStorage.getItem('userToken');
+      if (!tokenString) {
+        throw new Error('Token not found');
       }
-    };
-
-    const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/product/`, formData, config);
-
-    dispatch({
-      type: ProductActionTypes.CREATE_PRODUCT_SUCCESS,
-      payload: { data: response.data, status: response.status }
-    });
-  } catch (error: any) {
-    dispatch({
-      type: ProductActionTypes.CREATE_PRODUCT_FAIL,
-      payload: error.response && error.response.data.message ? error.response.data.message : error.message
-    });
+      const { token } = JSON.parse(tokenString);
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
+      };
+      const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/product/`, formData, config);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response && error.response.data.message ? error.response.data.message : error.message
+      );
+    }
   }
-};
-
+);
+export const updateProduct = createAsyncThunk(
+  'products/updateProduct',
+  async ({ id, formData }: { id: string; formData: FormData }, { rejectWithValue }) => {
+    try {
+      const tokenString = localStorage.getItem('userToken');
+      if (!tokenString) {
+        throw new Error('Token not found');
+      }
+      const { token } = JSON.parse(tokenString);
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
+      };
+      const response = await axios.put(`${import.meta.env.VITE_APP_API_URL}/product/${id}`, formData, config);
+      return response.data;
+    } catch (error: any) {
+      console.log(error);
+      return rejectWithValue(
+        error.response && error.response.data.message ? error.response.data.message : error.message
+      );
+    }
+  }
+);
 export const fetchVendorProducts = createAsyncThunk<VendorProduct, void>(
   'vendorProducts/fetchVendorProducts',
   async (_, { rejectWithValue }) => {
@@ -49,9 +63,7 @@ export const fetchVendorProducts = createAsyncThunk<VendorProduct, void>(
       if (!tokenString) {
         throw new Error('Token not found');
       }
-
       const { token } = JSON.parse(tokenString);
-
       const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/product/collection?limit=100`, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -63,7 +75,6 @@ export const fetchVendorProducts = createAsyncThunk<VendorProduct, void>(
     }
   }
 );
-
 export const fetchSingleProduct = createAsyncThunk<Product, string>(
   'products/fetchSingleProduct',
   async (productId, { rejectWithValue }) => {
@@ -75,7 +86,26 @@ export const fetchSingleProduct = createAsyncThunk<Product, string>(
     }
   }
 );
-
+export const deleteProduct = createAsyncThunk<string, string>(
+  'products/deleteProduct',
+  async (productId, { rejectWithValue }) => {
+    try {
+      const tokenString = localStorage.getItem('userToken');
+      if (!tokenString) {
+        throw new Error('Token not found');
+      }
+      const { token } = JSON.parse(tokenString);
+      await axios.delete(`${import.meta.env.VITE_APP_API_URL}/product/${productId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return productId;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
 export const resetProductState = (): ResetProductStateAction => ({
   type: ProductActionTypes.RESET_PRODUCT_STATE
 });

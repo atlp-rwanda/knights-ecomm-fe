@@ -1,5 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from '../redux/reducers/rootReducer';
+import { ThunkMiddleware, configureStore } from '@reduxjs/toolkit';
+import rootReducer, { RootState } from '../redux/reducers/rootReducer';
+import { thunk } from 'redux-thunk';
 // Adjust the path to your rootReducer
 
 export const createTestStore = () => {
@@ -10,6 +11,7 @@ export const createTestStore = () => {
       getDefaultMiddleware().concat(() => (next) => (action) => {
         actions.push(action);
         return next(action);
+        [thunk as ThunkMiddleware<RootState>];
       })
   });
 
