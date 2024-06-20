@@ -13,7 +13,7 @@ const ProductList: React.FC = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-
+  console.log(products);
   return <ul>{products?.data?.products?.map((product) => <li key={product.id}>{product.name}</li>)}</ul>;
 };
 
