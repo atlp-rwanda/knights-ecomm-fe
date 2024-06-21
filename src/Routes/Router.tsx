@@ -5,6 +5,8 @@ import WelcomePage from '../pages/welcomePage';
 import Register from '../pages/Authentication/Register';
 import RegisterVendor from '../pages/Authentication/RegisterVendor';
 import VerifyEmail from '../pages/Authentication/VerifyEmail';
+import { ForgotPassword } from '../pages/Authentication/ForgotPassword';
+import { ResetPassword } from '../pages/Authentication/ResetPassword';
 
 const Router = () => {
   return (
@@ -30,6 +32,9 @@ const Router = () => {
           </>
         }
       />
+
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
 
       <Route
         path="/verify-email/:token"
