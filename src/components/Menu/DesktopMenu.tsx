@@ -2,12 +2,17 @@ import React from 'react';
 import { AppDispatch } from '../../redux/store';
 import { clearCredentials } from '../../redux/reducers/authReducer';
 import { useDispatch } from 'react-redux';
+import { clearUser } from '../../redux/reducers/userReducer';
+import { useNavigate } from 'react-router-dom';
 
 function DesktopMenu() {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   const logoutHandler = () => {
-    dispatch(clearCredentials(''));
+    dispatch(clearCredentials());
+    dispatch(clearUser());
+    navigate('/');
   };
 
   return (

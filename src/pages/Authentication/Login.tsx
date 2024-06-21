@@ -7,9 +7,10 @@ import { RootState, AppDispatch } from '../../redux/store';
 import toast from 'react-hot-toast';
 import { loginUser } from '../../redux/actions/loginAction';
 import google from '../../images/google.png';
-import { setCredentials } from '../../redux/reducers/authReducer';
-import { Link } from 'react-router-dom';
+import { clearCredentials, setCredentials } from '../../redux/reducers/authReducer';
+import { Link, useNavigate } from 'react-router-dom';
 import { resetState } from '../../redux/reducers/loginReducer';
+import { setUser } from '../../redux/reducers/userReducer';
 
 export interface DecodedToken {
   id: string;
@@ -29,6 +30,7 @@ function Login() {
     reset
   } = useForm<LoginData>();
 
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { login: loginResponse, loading, error } = useSelector((state: RootState) => state.login);
 
@@ -38,16 +40,31 @@ function Login() {
 
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      toast.error(error, {
+        duration: 4000
+      });
+      if (error === 'Your account has been suspended') {
+        navigate('/suspended-account');
+      } else {
+        navigate('/');
+      }
+      dispatch(clearCredentials());
       dispatch(resetState());
     }
     if (loginResponse) {
-      toast.success(loginResponse.data!.message);
+      toast.success(loginResponse.data!.message, {
+        duration: 4000
+      });
+      if (loginResponse.data!.message === 'Please provide the OTP sent to your email or phone') {
+        dispatch(setUser(loginResponse.data!.email));
+        navigate('/otp-verficaton');
+      } else {
+        dispatch(setCredentials(loginResponse.data?.token));
+      }
       reset();
-      dispatch(setCredentials(loginResponse.data?.token));
       dispatch(resetState());
     }
-  }, [error, loginResponse, dispatch, reset]);
+  }, [error, navigate, loginResponse, dispatch, reset]);
 
   const googleAuth = () => {
     window.open(`${import.meta.env.VITE_APP_API_URL}/user/google-auth`, '_self');
