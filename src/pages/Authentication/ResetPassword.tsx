@@ -48,12 +48,7 @@ export const ResetPassword: React.FC = () => {
     }
   }, [error, registerResponse, dispatch, reset, navigate]);
 
-  const onSubmit: SubmitHandler<ResetPasswordData> = (data: ResetPasswordData) => {
-    if (data.newPassword !== data.confirmPassword) {
-      toast.error('Passwords do not match');
-      return;
-    }
-
+  const onSubmit: SubmitHandler<ResetPasswordData> = () => {
     if (!userId || !email) return toast.error('Password reset link is required');
 
     dispatch(resetPassword({ email, userId, confirmPassword: confirmPass, newPassword: password }));
@@ -86,8 +81,9 @@ export const ResetPassword: React.FC = () => {
           <div className="w-full min-h-[50px] flex items-center justify-between gap-x-1 px-4 py-2 border border-grey1 bg-white">
             <input
               className="w-full h-[100%] border-none outline-none bg-white text-grey2 text-lg"
+              data-testid="newPassword"
               type={showNewPassword ? 'text' : 'password'}
-              placeholder=" ---------- "
+              placeholder="----------"
               {...register('newPassword', {
                 required: 'Password is required',
                 minLength: {
@@ -102,12 +98,14 @@ export const ResetPassword: React.FC = () => {
             />
             {showNewPassword ? (
               <EyeOff
+                data-testid="eye-icon"
                 strokeWidth={1.5}
                 className="text-grey2 cursor-pointer"
                 onClick={() => setShowNewPassword(!showNewPassword)}
               />
             ) : (
               <Eye
+                data-testid="eye-icon"
                 strokeWidth={1.5}
                 className="text-grey2 cursor-pointer"
                 onClick={() => setShowNewPassword(!showNewPassword)}
@@ -122,7 +120,8 @@ export const ResetPassword: React.FC = () => {
             <input
               className="w-full h-[100%] border-none outline-none bg-white text-grey2 text-lg"
               type={showConfirmPassword ? 'text' : 'password'}
-              placeholder=" ---------- "
+              data-testid="confirmPassword"
+              placeholder="----------"
               {...register('confirmPassword', {
                 required: 'Password confirmation is required',
                 validate: (value) => value === password || 'Passwords do not match'
@@ -130,12 +129,14 @@ export const ResetPassword: React.FC = () => {
             />
             {showConfirmPassword ? (
               <EyeOff
+                data-testid="eye-icon2"
                 strokeWidth={1.5}
                 className="text-grey2 cursor-pointer"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               />
             ) : (
               <Eye
+                data-testid="eye-icon2"
                 strokeWidth={1.5}
                 className="text-grey2 cursor-pointer"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}

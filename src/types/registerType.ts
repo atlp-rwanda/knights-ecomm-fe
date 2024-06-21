@@ -14,3 +14,17 @@ export type RegisterResponse = {
     message: string;
   };
 };
+
+export type LoginData = {
+  email: string;
+  password: string;
+};
+
+export type LoginResponse = {
+  status: string;
+  message?: string;
+  data?: {
+    message: string;
+    token: string;
+  };
+};

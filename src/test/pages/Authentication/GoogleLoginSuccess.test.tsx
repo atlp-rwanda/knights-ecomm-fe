@@ -1,23 +1,21 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import Navbar from '../../../components/Navbar/Navbar';
 import { Provider } from 'react-redux';
 import store from '../../../redux/store';
 import { MemoryRouter } from 'react-router-dom';
-import PageTitle from '../../../components/PageTitle';
+import GoogleLoginSuccess from '../../../pages/Authentication/GoogleLoginSuccess';
 
-describe('Navbar', () => {
-  it('renders the Navbar and PageTitle component', () => {
+describe('GoogleLogin', () => {
+  it('renders the GoogleLogin component', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <PageTitle title="Page Title" />
-          <Navbar />
+          <GoogleLoginSuccess />
         </MemoryRouter>
       </Provider>
     );
-    const navbarElement = screen.getByText('KNIGHTS STORE');
-    expect(navbarElement).toBeInTheDocument();
+    const spanElement = screen.getByText('Signing in with Google');
+    expect(spanElement).toBeInTheDocument();
   });
 });
