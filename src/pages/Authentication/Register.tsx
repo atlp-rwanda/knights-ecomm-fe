@@ -145,12 +145,14 @@ function Register() {
             />
             {showPassword ? (
               <EyeOff
+                data-testid="eye-icon"
                 strokeWidth={1.5}
                 className="text-grey2 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
               />
             ) : (
               <Eye
+                data-testid="eye-icon"
                 strokeWidth={1.5}
                 className="text-grey2 cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}

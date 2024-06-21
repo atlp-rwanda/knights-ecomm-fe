@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { Provider } from 'react-redux';
 import store from '../../../redux/store';
@@ -40,5 +40,15 @@ describe('Register', () => {
     //get the specific <input> element with the placeholder "John"
     const inputElement = screen.getByPlaceholderText('John');
     expect(inputElement).toBeInTheDocument();
+
+    const eyeIcon = screen.getByTestId('eye-icon');
+    fireEvent.click(eyeIcon);
+
+    const passwordInput = screen.getByPlaceholderText('Password') as HTMLInputElement;
+    expect(passwordInput.type).toBe('text');
+
+    const eyeIcon2 = screen.getByTestId('eye-icon');
+    fireEvent.click(eyeIcon2);
+    expect(passwordInput.type).toBe('password');
   });
 });
