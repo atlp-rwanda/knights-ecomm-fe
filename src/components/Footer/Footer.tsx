@@ -9,7 +9,7 @@ function Footer() {
     <div className="w-full flex flex-col items-center justify-start gap-y-8 py-8">
       <div className="w-full md:w-[80%] flex items-start justify-between p-4 md:p-0">
         <div className="flex flex-col items-start justify-start gap-y-6 pb-10">
-          <h1 className="flex items-end justify-start gap-x-2 text-primary capitalize font-medium text-2xl">
+          <h1 className="flex items-end justify-start gap-x-2 text-primary capitalize font-medium text-xl">
             <img src={logo} alt="" />
             KNIGHTS STORE
           </h1>
@@ -42,24 +42,17 @@ function Footer() {
           <h2 className="flex items-center justify-start gap-x-2 text-primary font-medium text-sm md:text-lg">
             Address / Office
           </h2>
-
-          <p className="mt-8  flex items-center justify-start gap-x-2 text-black2 font-normal text-sm md:text-lg">
-            Kigali-Rwanda
-          </p>
-          <p className="flex items-center justify-start gap-x-2 text-black2 font-normal text-sm md:text-lg">
-            Gasabo, Kimironko
-          </p>
-          <p className="flex items-center justify-start gap-x-2 text-black2 font-normal text-sm md:text-lg">
-            Tel No: +250780288777
-          </p>
-          <p className="flex items-center justify-start gap-x-2 text-black2 font-normal text-sm md:text-lg">
-            Email: knights@andela.com
-          </p>
+          <div className="flex flex-col gap-y-1 text-sm text-grey2">
+            <p>Kigali-Rwanda</p>
+            <p>Gasabo, Kimironko</p>
+            <p>Tel No: +250780288777</p>
+            <p>Email: knights@andela.com</p>
+          </div>
         </div>
       </div>
       <hr className="w-[80%] h-[2px] bg-grey3" />
       <div className="w-full flex items-center justify-center">
-        <p className="text-primary text-sm md:text-lg">
+        <p className="text-primary text-sm md:text-base">
           © {new Date().getFullYear()} Knights Store. All Rights Reserved.
         </p>
       </div>
