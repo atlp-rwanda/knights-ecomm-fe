@@ -121,7 +121,7 @@ function Login() {
           {errors.password && <span className="text-orange text-xs">Password is required</span>}
         </div>
         <p className="text-small w-full text-black1 text-right">
-          <a href="/reset-password"> Forgot password? </a>
+          <a href="/forgot-password"> Forgot password? </a>
         </p>
         <button
           type="submit"

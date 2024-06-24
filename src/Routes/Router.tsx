@@ -12,6 +12,8 @@ import GoogleLoginSuccess from '../pages/Authentication/GoogleLoginSuccess';
 import { useJwt } from 'react-jwt';
 import OtpPage from '../pages/Authentication/OtpPage';
 import SuspendedAccount from '../components/SuspendedAccount/SuspendedAccount';
+import { ForgotPassword } from '../pages/Authentication/ForgotPassword';
+import { ResetPassword } from '../pages/Authentication/ResetPassword';
 
 const Router = () => {
   const { userToken } = useSelector((state: RootState) => state.auth);
@@ -54,6 +56,33 @@ const Router = () => {
           </>
         }
       />
+
+      <Route
+        path="/forgot-password"
+        element={
+          <>
+            <PageTitle title="Knights Store | Forgot Password" />
+            <ForgotPassword />
+            {userToken && isAdmin && <Navigate to="/admin/dashboard" />}
+            {userToken && isVendor && <Navigate to="/vendor/dashboard" />}
+            {userToken && isBuyer && <Navigate to="/" />}
+          </>
+        }
+      />
+
+      <Route
+        path="/reset-password"
+        element={
+          <>
+            <PageTitle title="Knights Store | Reset Password" />
+            <ResetPassword />
+            {userToken && isAdmin && <Navigate to="/admin/dashboard" />}
+            {userToken && isVendor && <Navigate to="/vendor/dashboard" />}
+            {userToken && isBuyer && <Navigate to="/" />}
+          </>
+        }
+      />
+
       <Route
         path="/login"
         element={

@@ -5,6 +5,7 @@ import verifyEmailReducer from './verifyEmailReducer';
 import userReducer from './userReducer';
 import loginReducer from './loginReducer';
 import authReducer from './authReducer';
+import passwordReducer from './passwordResetReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   register: registerReducer,
   login: loginReducer,
   verifyEmail: verifyEmailReducer,
-  products: productReducer
+  products: productReducer,
+  password: passwordReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
