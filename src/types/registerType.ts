@@ -26,5 +26,6 @@ export type LoginResponse = {
   data?: {
     message: string;
     token: string;
+    email?: string;
   };
 };

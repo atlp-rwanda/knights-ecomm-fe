@@ -34,8 +34,7 @@ const authSlice = createSlice({
         localStorage.removeItem('userToken');
       }
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    clearCredentials: (state, action) => {
+    clearCredentials: (state) => {
       state.userToken = null;
       localStorage.removeItem('userToken');
     }
