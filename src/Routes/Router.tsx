@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import GoogleLoginSuccess from '../pages/Authentication/GoogleLoginSuccess';
 import { useJwt } from 'react-jwt';
+import OtpPage from '../pages/Authentication/OtpPage';
+import SuspendedAccount from '../components/SuspendedAccount/SuspendedAccount';
 
 const Router = () => {
   const { userToken } = useSelector((state: RootState) => state.auth);
@@ -65,7 +67,7 @@ const Router = () => {
         }
       />
       <Route
-        path="/login/success"
+        path="/login/google-auth"
         element={
           <>
             <PageTitle title="Knights Store | Login" />
@@ -73,6 +75,28 @@ const Router = () => {
             {userToken && isVendor && <Navigate to="/vendor/dashboard" />}
             {userToken && isBuyer && <Navigate to="/" />}
             {!userToken && <GoogleLoginSuccess />}
+          </>
+        }
+      />
+      <Route
+        path="/suspended-account"
+        element={
+          <>
+            <PageTitle title="Knights Store | Suspended Account" />
+            {userToken && <Navigate to="/" />}
+            <SuspendedAccount />
+          </>
+        }
+      />
+      <Route
+        path="/otp-verficaton"
+        element={
+          <>
+            <PageTitle title="Knights Store | Verify OTP" />
+            <OtpPage />
+            {userToken && isAdmin && <Navigate to="/admin/dashboard" />}
+            {userToken && isVendor && <Navigate to="/vendor/dashboard" />}
+            {userToken && isBuyer && <Navigate to="/" />}
           </>
         }
       />

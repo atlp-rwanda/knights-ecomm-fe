@@ -15,7 +15,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
     coverage: {
-      exclude: [...configDefaults.exclude, '**.**js']
+      exclude: [...configDefaults.exclude, '**.**js', '**/**.d.ts']
     }
   },
   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg']
