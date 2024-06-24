@@ -16,7 +16,6 @@ export const requestPasswordReset = createAsyncThunk(
       return response.data;
     } catch (err) {
       const error = err as AxiosError;
-      console.error('Error in requestPasswordReset action:');
       return rejectWithValue(error.response?.data || 'Failed to send reset password link');
     }
   }
@@ -26,7 +25,6 @@ export const resetPassword = createAsyncThunk(
   '/user/password/reset',
   async ({ userId, email, newPassword, confirmPassword }: PasswordResetData, { rejectWithValue }) => {
     try {
-      console.log('Inside resetPassword action: ', { userId, email, newPassword, confirmPassword });
       const response = await axios.post(
         `${import.meta.env.VITE_APP_API_URL}/user/password/reset`,
         {
@@ -37,12 +35,10 @@ export const resetPassword = createAsyncThunk(
           params: { userid: userId, email }
         }
       );
-      console.log('Result of reset password action: ', response.data);
 
       return response.data;
     } catch (err) {
       const error = err as AxiosError;
-      console.error('Error in resetPassword action:', error);
       return rejectWithValue(error.response?.data || 'Failed to reset password');
     }
   }
