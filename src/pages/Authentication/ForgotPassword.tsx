@@ -42,14 +42,16 @@ export const ForgotPassword: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[100vh] h-auto w-full flex items-center justify-center py-10 px-4 bg-transparent1">
+    <div className="min-h-[100vh] h-auto w-full flex items-center justify-center py-10 md:px-4 bg-transparent1">
       <form
-        className="min-w-[90%] flex flex-col items-center justify-start gap-y-4 bg-white p-12 md:min-w-[500px] md:max-w-[500px]"
+        className="min-w-[100%] flex flex-col items-center justify-start gap-y-4 bg-white sm:p-12 px-6 py-12 md:min-w-[500px] md:max-w-[700px]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full flex flex-col items-start justify-start gap-y-2">
-          <h1 className="text-black1 ml-10 font-Poppins font-bold text-lg">Forgot your password?</h1>
-          <p className="text-black1 ml-5 text-lg">Enter your email and we&apos;ll send you a reset link.</p>
+          <h1 className="text-black1 ml-10 font-Poppins text-xl md:text-2xl">Forgot your password?</h1>
+          <p className="text-neutrals600 ml-5 sm:text-base text-sm">
+            Enter your email and we&apos;ll send you a reset link.
+          </p>
           <div className="w-full min-h-[50px] flex items-center justify-between gap-x-1 px-4 py-2 border border-grey1 bg-white">
             <input
               className="w-full h-[100%] border-none outline-none bg-white text-grey2 text-lg"
@@ -67,7 +69,7 @@ export const ForgotPassword: React.FC = () => {
         <button
           type={loading ? 'button' : 'submit'}
           disabled={!isEmailValid || loading}
-          className={`w-full min-h-[50px] flex items-center justify-center bg-primary text-white text-2xl font-medium mt-2 ${loading ? 'cursor-not-allowed' : ''}`}
+          className={`w-full min-h-[50px] flex items-center justify-center bg-primary text-white text-lg rounded-3xl font-medium mt-2 ${loading ? 'cursor-not-allowed' : ''}`}
         >
           {loading ? 'Loading...' : 'Send Reset Link'}
         </button>

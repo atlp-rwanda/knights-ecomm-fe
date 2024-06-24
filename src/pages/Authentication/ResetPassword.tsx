@@ -40,6 +40,7 @@ export const ResetPassword: React.FC = () => {
       dispatch(resetState());
     }
     if (registerResponse) {
+      // console.log({registerResponse});
       toast.success(registerResponse.data.message);
       reset();
       dispatch(resetState());
@@ -75,8 +76,8 @@ export const ResetPassword: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full flex flex-col items-start justify-start gap-y-2">
-          <h1 className="text-black1 font-Poppins font-bold text-lg">Reset your password</h1>
-          <p className="text-black1 text-lg">New password</p>
+          <h1 className="text-black1 font-Poppins text-2xl">Reset your password</h1>
+          <p className="text-black1 text-sm">New password</p>
           <div className="w-full min-h-[50px] flex items-center justify-between gap-x-1 px-4 py-2 border border-grey1 bg-white">
             <input
               className="w-full h-[100%] border-none outline-none bg-white text-grey2 text-lg"
@@ -114,7 +115,7 @@ export const ResetPassword: React.FC = () => {
           {password && passwordRequirements}
           {errors.newPassword && <span className="text-orange">{errors.newPassword.message}</span>}
 
-          <p className="text-black1 text-lg">Confirm password</p>
+          <p className="text-black1 text-sm">Confirm password</p>
           <div className="w-full min-h-[50px] flex items-center justify-between gap-x-1 px-4 py-2 border border-grey1 bg-white">
             <input
               className="w-full h-[100%] border-none outline-none bg-white text-grey2 text-lg"
@@ -147,12 +148,12 @@ export const ResetPassword: React.FC = () => {
         <button
           type={loading ? 'button' : 'submit'}
           disabled={!isEmailValid || loading}
-          className={`w-full min-h-[50px] flex items-center justify-center bg-primary text-white text-2xl font-medium mt-2 ${loading ? 'cursor-not-allowed' : ''}`}
+          className={`w-full min-h-[50px] flex items-center rounded-3xl justify-center bg-primary text-white text-lg font-medium mt-2 ${loading ? 'cursor-not-allowed' : ''}`}
         >
           {loading ? 'Loading...' : 'Reset Password'}
         </button>
 
-        <p className="text-small text-black1 md:text-lg">
+        <p className="text-sm text-black1 md:text-base">
           Remember your credentials?{' '}
           <a href="/login" className="ml-1 text-orange">
             login here

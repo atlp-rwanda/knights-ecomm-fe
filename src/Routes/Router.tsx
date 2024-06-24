@@ -47,9 +47,6 @@ const Router = () => {
         }
       />
 
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
-
       <Route
         path="/verify-email/:token"
         element={
@@ -59,6 +56,33 @@ const Router = () => {
           </>
         }
       />
+
+      <Route
+        path="/forgot-password"
+        element={
+          <>
+            <PageTitle title="Knights Store | Forgot Password" />
+            <ForgotPassword />
+            {userToken && isAdmin && <Navigate to="/admin/dashboard" />}
+            {userToken && isVendor && <Navigate to="/vendor/dashboard" />}
+            {userToken && isBuyer && <Navigate to="/" />}
+          </>
+        }
+      />
+
+      <Route
+        path="/reset-password"
+        element={
+          <>
+            <PageTitle title="Knights Store | Reset Password" />
+            <ResetPassword />
+            {userToken && isAdmin && <Navigate to="/admin/dashboard" />}
+            {userToken && isVendor && <Navigate to="/vendor/dashboard" />}
+            {userToken && isBuyer && <Navigate to="/" />}
+          </>
+        }
+      />
+
       <Route
         path="/login"
         element={
