@@ -27,6 +27,9 @@ export default {
         grey2: '#5C5C5C',
         grey3: '#C7C7C7'
       },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif']
+      },
       boxShadow: {
         navbar: '0px 1px 3px -2px rgba(0, 0, 0, 1)' // Customize the rgba color value as needed
       },

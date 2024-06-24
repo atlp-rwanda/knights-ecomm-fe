@@ -5,6 +5,10 @@ import verifyEmailReducer from './verifyEmailReducer';
 import userReducer from './userReducer';
 import loginReducer from './loginReducer';
 import authReducer from './authReducer';
+import passwordReducer from './passwordResetReducer';
+import { productCreateReducer } from './createProductReducer';
+import getSingleProductReducer from './getSingleProductReducer';
+import productSliceReducer from './getVendorProductsReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -12,7 +16,11 @@ const rootReducer = combineReducers({
   register: registerReducer,
   login: loginReducer,
   verifyEmail: verifyEmailReducer,
-  products: productReducer
+  products: productReducer,
+  productCreate: productCreateReducer,
+  getVendorProduct: productSliceReducer,
+  singleProduct: getSingleProductReducer,
+  password: passwordReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -6,7 +6,7 @@ import gmail from '../../images/gmail.png';
 
 function Footer() {
   return (
-    <div className="w-full flex flex-col items-center justify-start gap-y-8 py-8">
+    <div className="w-full flex flex-col items-center justify-start gap-y-8 py-8" data-testid="footer">
       <div className="w-full md:w-[80%] flex items-start justify-between p-4 md:p-0">
         <div className="flex flex-col items-start justify-start gap-y-6 pb-10">
           <h1 className="flex items-end justify-start gap-x-2 text-primary capitalize font-medium text-xl">

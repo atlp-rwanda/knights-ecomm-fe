@@ -7,8 +7,10 @@ import { Toaster } from 'react-hot-toast';
 function App() {
   return (
     <Provider store={store}>
-      <Layout />
-      <Toaster position="top-center" reverseOrder={false} />
+      <div data-testid="app-component">
+        <Layout />
+        <Toaster position="top-center" reverseOrder={false} />
+      </div>
     </Provider>
   );
 }
