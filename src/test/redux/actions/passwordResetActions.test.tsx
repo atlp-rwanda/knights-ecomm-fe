@@ -6,7 +6,6 @@ import passwordReducer, { resetState } from '../../../redux/reducers/passwordRes
 vi.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-// store with the password reducer for testing
 const store = configureStore({
   reducer: {
     password: passwordReducer

@@ -35,7 +35,6 @@ export const ResetPassword: React.FC = () => {
   const email = params.get('email');
 
   useEffect(() => {
-    console.log('Inside useEffect', { error, registerResponse });
     if (error) {
       toast.error(error);
       dispatch(resetState());
