@@ -20,6 +20,25 @@ export default {
         neutrals800: '#433E3F',
         neutrals900: '#2B2829',
         neutrals1000: '#151314',
+        secondary100: '#f0f0f0',
+        secondary200: '#dae1e7',
+        secondary300: '#ced7de',
+        secondary400: '#c2cdd6',
+        secondary500: '#b6c3cd',
+        secondary600: '#92a5b5',
+        secondary700: '#7991a4',
+        secondary800: '#637d92',
+        secondary900: '#4a5e6d',
+        secondary1000: '#323f49',
+        success100: '#a4f4e7',
+        success200: '#15b097',
+        success300: '#0b7b69',
+        warning100: '#f4c790',
+        warning200: '#eda145',
+        warning300: '#cc7914',
+        error100: '#e4626f',
+        error200: '#c03744',
+        error300: '#8c1823',
         orange: '#FF4141',
         black1: '#000000',
         black2: 'rgba(0, 0, 0, 0.6)',
@@ -34,7 +53,22 @@ export default {
         navbar: '0px 1px 3px -2px rgba(0, 0, 0, 1)' // Customize the rgba color value as needed
       },
       animation: {
-        'spin-slow': 'spin 1.5s linear infinite'
+        'spin-slow': 'spin 1.5s linear infinite',
+        slideInToLeft: 'slideInToLeft 1.5s ease-out forwards',
+        fadeInAnimation: 'fadeInAnimation 1s ease-out forwards'
+      },
+      keyframes: {
+        slideInToLeft: {
+          '0%': { transform: 'translateX(100%)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' }
+        },
+        fadeInAnimation: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        }
+      },
+      screens: {
+        xmd: '700px'
       }
     }
   },

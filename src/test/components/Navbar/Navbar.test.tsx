@@ -8,7 +8,7 @@ import { MemoryRouter } from 'react-router-dom';
 import PageTitle from '../../../components/PageTitle';
 
 describe('Navbar', () => {
-  it('renders the Navbar and PageTitle component', () => {
+  beforeAll(() => {
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -17,6 +17,8 @@ describe('Navbar', () => {
         </MemoryRouter>
       </Provider>
     );
+  });
+  it('renders the Navbar and PageTitle component', () => {
     const navbarElement = screen.getByText('KNIGHTS STORE');
     expect(navbarElement).toBeInTheDocument();
   });
