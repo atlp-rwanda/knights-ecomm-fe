@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { ProductActionTypes, ProductActions, ResetProductStateAction } from '../types/productTypes';
 import { Product, VendorProduct } from '../../types/productTypes';
+import HttpRequest from '../../services/HttpRequest';
+import { CreateCouponArgs, getCouponArgs, updateCouponArgs } from '../../types/CouponTypes';
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/product/all`);
@@ -79,3 +81,39 @@ export const fetchSingleProduct = createAsyncThunk<Product, string>(
 export const resetProductState = (): ResetProductStateAction => ({
   type: ProductActionTypes.RESET_PRODUCT_STATE
 });
+
+export const createCoupon = createAsyncThunk<any, CreateCouponArgs>(
+  'products/createCoupon',
+  async ({ data, vendorid }: CreateCouponArgs) => {
+    const response = await HttpRequest.post(`${import.meta.env.VITE_APP_API_URL}/coupons/vendor/${vendorid}`, data);
+    return response.data;
+  }
+);
+export const getCoupon = createAsyncThunk<any, getCouponArgs>(
+  'products/getCoupon',
+  async ({ vendorId }: getCouponArgs) => {
+    const response = await HttpRequest.get(
+      `${import.meta.env.VITE_APP_API_URL}/coupons/vendor/${vendorId}/access-coupons`
+    );
+    return response.data;
+  }
+);
+export const deleteCoupon = createAsyncThunk<any, getCouponArgs>(
+  'products/deleteCoupon',
+  async ({ vendorId }: getCouponArgs) => {
+    const response = await HttpRequest.delete(
+      `${import.meta.env.VITE_APP_API_URL}/coupons/vendor/${vendorId}/checkout/delete`
+    );
+    return response.data;
+  }
+);
+export const updateCoupon = createAsyncThunk<any, updateCouponArgs>(
+  'products/updateCoupon',
+  async ({ vendorId, code, data }: updateCouponArgs) => {
+    const response = await HttpRequest.put(
+      `${import.meta.env.VITE_APP_API_URL}/coupons/vendor/${vendorId}/update-coupon/${code}`,
+      data
+    );
+    return response.data;
+  }
+);

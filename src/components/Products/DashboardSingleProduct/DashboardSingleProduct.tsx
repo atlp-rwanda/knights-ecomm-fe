@@ -1,20 +1,80 @@
 import { MoveLeft, Plus, SquarePen } from 'lucide-react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../../redux/store';
-import { fetchSingleProduct } from '../../../redux/actions/productAction';
+import { createCoupon, fetchSingleProduct, getCoupon } from '../../../redux/actions/productAction';
 import { useDispatch, useSelector } from 'react-redux';
+import FormPopup from '../../Popups/FormPopup';
+import CouponForm from '../../Forms/CouponForm';
+import Popup from '../../Popups/Popup';
+import { FormPayload, PopupProps } from '../../../types/CouponTypes';
+import { decodedToken } from '../../../services/jwtOperation';
+import ListPopup from '../../Popups/ListPopup';
+import ProductCoupon from '../ProductCoupon/ProductCoupon';
+import { DecodedToken } from '../../../pages/Authentication/Login';
+import { expectedOutput } from '../../../test/utils/jwtOperation.test';
 
 const DashboardSingleProduct: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id, app_env } = useParams<{ id: string; app_env: string }>();
+
   const dispatch = useDispatch<AppDispatch>();
   const { loading, product, error } = useSelector((state: RootState) => state.singleProduct);
-
+  const [showPopup, setShowPopup] = useState(false);
+  const [tokenDecoded, setTokenDecoded] = useState<DecodedToken>({
+    id: '',
+    email: '',
+    role: '',
+    iat: 0,
+    exp: 0
+  });
+  const [popupProps, setPopupProps] = useState<PopupProps>({
+    title: '',
+    subtitle: '',
+    responseType: 'success',
+    duration: 3000,
+    onClose: () => setShowPopup(false)
+  });
+  useEffect(() => {
+    const decoded: any = decodedToken();
+    if (!decoded && app_env) {
+      const decode: any = decodedToken({ testData: expectedOutput });
+      setTokenDecoded(decode);
+    }
+    setTokenDecoded(decoded);
+  }, [app_env]);
   useEffect(() => {
     if (id) {
       dispatch(fetchSingleProduct(id));
     }
   }, [dispatch, id]);
+
+  const handleSubmit = async (data: FormPayload) => {
+    try {
+      await dispatch(createCoupon({ data, vendorid: tokenDecoded?.id })).unwrap();
+      await dispatch(getCoupon({ vendorId: tokenDecoded?.id })).unwrap();
+      setPopupProps({
+        title: 'Success',
+        subtitle: 'Coupon created successfully.',
+        responseType: 'success',
+        duration: 3000,
+        onClose: () => setShowPopup(false)
+      });
+      setShowPopup(true);
+    } catch (error: any) {
+      setPopupProps({
+        title: 'Failure',
+        subtitle: `${error.message}`,
+        responseType: 'fail',
+        duration: 3000,
+        onClose: () => setShowPopup(false)
+      });
+
+      setShowPopup(true);
+    }
+  };
+  const handleClose = () => {
+    console.log('closed');
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error)
@@ -105,13 +165,32 @@ const DashboardSingleProduct: React.FC = () => {
             <p className="font-bold text-2xl">Discount</p>
             <div className="flex flex-col items-start gap-2 py-4">
               <p className="font-medium">Coupons</p>
-              <div className="py-2 px-4 bg-[#E7EBEF] rounded">List of coupons</div>
-              <Link
-                to={'coupon'}
-                className="px-8 py-4 bg-[#E7EBEF] font-semibold text-black rounded-lg flex gap-4 items-center hover:scale-105 transition-all duration-300 ease-in-out"
-              >
-                Create New Coupon <Plus />
-              </Link>
+              <ListPopup
+                trigger={
+                  <div className="py-2 px-4 bg-[#E7EBEF] rounded  hover:scale-105 transition-all duration-300 ease-in-out">
+                    List of coupons
+                  </div>
+                }
+                title={`List of ${product?.name} coupons`}
+                body={<ProductCoupon vendorId={tokenDecoded?.id} productId={id as string} />}
+              />
+              <div className="block">
+                <FormPopup
+                  trigger={
+                    <button className="px-8 py-4 bg-[#E7EBEF] font-semibold text-black rounded-lg flex gap-4 items-center hover:scale-105 transition-all duration-300 ease-in-out">
+                      Create New Coupon <Plus />
+                    </button>
+                  }
+                  title="Create a Coupon"
+                  submitText="Add Coupon"
+                  closeText="Cancel"
+                  body={<CouponForm onSubmit={handleSubmit} product={id as string} title={'Create a Coupon'} />}
+                  onSubmit={handleSubmit}
+                  onClose={handleClose}
+                />
+
+                {showPopup && <Popup {...popupProps} onClose={() => setShowPopup(false)} />}
+              </div>
             </div>
             <div className="flex flex-col">
               <p className="font-bold text-2xl">Customer Feedback</p>

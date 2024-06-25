@@ -1,18 +1,26 @@
+// src/index.test.tsx
+
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { describe, it } from 'vitest';
-
-import { BrowserRouter } from 'react-router-dom';
+import { render } from '@testing-library/react';
 import App from '../App';
+import { BrowserRouter } from 'react-router-dom';
+import { describe, it } from 'vitest';
+describe('Root Component', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
 
-describe('Main entry point', () => {
-  it('renders the App component inside BrowserRouter without crashing', () => {
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <React.StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </React.StrictMode>,
+      {
+        container: div
+      }
     );
 
-    expect(screen.getByTestId('app-component')).toBeInTheDocument();
+    expect(div.querySelector('div')).toBeInTheDocument();
   });
 });

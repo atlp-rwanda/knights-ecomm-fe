@@ -85,7 +85,7 @@ const DashboardNavbar: React.FC<DashboardNavBarProps> = ({ setOpenNav }) => {
           <button className="px-4 lg:border-r-2 border-[#7c7c7c]">
             <img src={notificationIcon} alt="Notification" />
           </button>
-          <button onClick={() => setOpenNav(true)} className="lg:hidden">
+          <button onClick={() => setOpenNav(true)} className="lg:hidden" name="AlignJustify">
             <AlignJustify />
           </button>
         </div>

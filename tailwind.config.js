@@ -44,7 +44,8 @@ export default {
         black2: 'rgba(0, 0, 0, 0.6)',
         grey1: '#C9C9C9',
         grey2: '#5C5C5C',
-        grey3: '#C7C7C7'
+        grey3: '#C7C7C7',
+        secondary: '#AAB9C5'
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif']

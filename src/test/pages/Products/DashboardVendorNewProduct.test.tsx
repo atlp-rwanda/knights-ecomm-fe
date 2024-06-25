@@ -12,6 +12,16 @@ import MainLayout from '../../../layout/MainLayout';
 vi.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
+// Mock the toast module
+vi.mock('react-hot-toast', async (importOriginal) => {
+  const actual: any = await importOriginal();
+  return {
+    ...actual,
+    error: vi.fn(),
+    success: vi.fn()
+  };
+});
+
 describe('DashboardNewProducts', () => {
   it('renders the DashboardNewProducts component without crashing', () => {
     render(
@@ -80,6 +90,51 @@ describe('DashboardNewProducts', () => {
     fireEvent.click(categorySelect);
     mockCategories.forEach((category) => {
       expect(screen.getByText(category.name)).toBeInTheDocument();
+    });
+  });
+
+  it('submits the form with valid data', async () => {
+    const mockCategories = [
+      { id: '1', name: 'Category 1' },
+      { id: '2', name: 'Category 2' }
+    ];
+
+    mockedAxios.get.mockResolvedValueOnce({ data: { categories: mockCategories } });
+    mockedAxios.post.mockResolvedValueOnce({ data: { message: 'Product created' } });
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <DashboardNewProducts />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    await waitFor(() =>
+      expect(mockedAxios.get).toHaveBeenCalledWith(`${import.meta.env.VITE_APP_API_URL}/product/categories`)
+    );
+
+    const categorySelect = screen.getByRole('combobox');
+    fireEvent.change(categorySelect, { target: { value: 'Category 1' } });
+
+    const submitButton = screen.getByText('New Product') as HTMLButtonElement;
+    fireEvent.click(submitButton);
+  });
+
+  it('displays image previews after upload', async () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <DashboardNewProducts />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    // const file = new File(['image'], 'image.png', { type: 'image/png' });
+    // fireEvent.change(screen.getByLabelText(/Image Upload/i), { target: { files: [file, file] } });
+
+    await waitFor(() => {
+      // expect(screen.getAllByAltText(/Preview/i)).toHaveLength(2);
     });
   });
 

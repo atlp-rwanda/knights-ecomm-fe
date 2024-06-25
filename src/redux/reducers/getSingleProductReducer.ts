@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchSingleProduct } from '../actions/productAction';
-import { Product } from '../../types/productTypes';
-
-interface SingleProductState {
-  loading: boolean;
-  product: Product | null;
-  error: string | null;
-}
+import { Product, SingleProductState } from '../../types/productTypes';
 
 const initialState: SingleProductState = {
   loading: false,
