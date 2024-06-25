@@ -18,6 +18,7 @@ export interface DecodedToken {
   role: string;
   iat: number;
   exp: number;
+  userType: string;
 }
 
 function Login() {

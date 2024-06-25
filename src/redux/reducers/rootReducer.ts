@@ -12,7 +12,7 @@ import productSliceReducer from './getVendorProductsReducer';
 import categoryReducer from './categoryReducer';
 import bannerReducer from './bannerReducer';
 import searchReducer from '../reducers/SearchReducer';
-
+import productDelete from './deleteProductReducer';
 const rootReducer = combineReducers({
   auth: authReducer,
   currentUser: userReducer,
@@ -26,8 +26,8 @@ const rootReducer = combineReducers({
   password: passwordReducer,
   category: categoryReducer,
   banner: bannerReducer,
-  search: searchReducer
+  search: searchReducer,
+  delete: productDelete
 });
-
 export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;
