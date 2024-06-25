@@ -40,7 +40,6 @@ export const ResetPassword: React.FC = () => {
       dispatch(resetState());
     }
     if (registerResponse) {
-      // console.log({registerResponse});
       toast.success(registerResponse.data.message);
       reset();
       dispatch(resetState());

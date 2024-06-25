@@ -22,7 +22,10 @@ function Navbar() {
   };
 
   return (
-    <nav className="w-full min-h-[10vh] h-auto flex items-center justify-between bg-white px-6 lg:px-12 py-5 sticky top-0 shadow-navbar text-baseBlack">
+    <nav
+      className="w-full min-h-[10vh] h-auto flex items-center justify-between bg-white px-6 lg:px-12 py-5 sticky top-0 shadow-navbar text-baseBlack"
+      data-testid="navbar"
+    >
       <h1 className="flex items-center justify-start gap-x-2 text-primary capitalize font-medium text-xl">
         <img src={knightsLogo} alt="" />
         KNIGHTS STORE

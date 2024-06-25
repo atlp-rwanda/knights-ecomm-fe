@@ -14,6 +14,12 @@ import OtpPage from '../pages/Authentication/OtpPage';
 import SuspendedAccount from '../components/SuspendedAccount/SuspendedAccount';
 import { ForgotPassword } from '../pages/Authentication/ForgotPassword';
 import { ResetPassword } from '../pages/Authentication/ResetPassword';
+import DashboardLayout from '../layout/DashboardLayout';
+import DashboarInnerLayout from '../layout/DashboarInnerLayout';
+import DashboardProducts from '../components/Products/DashboardProducts/DashboardProducts';
+import DashboardSingleProduct from '../components/Products/DashboardSingleProduct/DashboardSingleProduct';
+import DashboardNewProducts from '../components/Products/DashboardNewProducts/DashboardNewProducts';
+import MainLayout from '../layout/MainLayout';
 
 const Router = () => {
   const { userToken } = useSelector((state: RootState) => state.auth);
@@ -30,105 +36,112 @@ const Router = () => {
       <Route
         path="/register"
         element={
-          <>
+          <MainLayout>
             <PageTitle title="Knights Store | Register" />
             <Register />
-          </>
+          </MainLayout>
         }
       />
 
       <Route
         path="/register-vendor"
         element={
-          <>
+          <MainLayout>
             <PageTitle title="Knights Store | Register Vendor" />
             <RegisterVendor />
-          </>
+          </MainLayout>
         }
       />
 
       <Route
         path="/verify-email/:token"
         element={
-          <>
+          <MainLayout>
             <PageTitle title="Knights Store | Verify Email" />
             <VerifyEmail />
-          </>
+          </MainLayout>
         }
       />
 
       <Route
         path="/forgot-password"
         element={
-          <>
+          <MainLayout>
             <PageTitle title="Knights Store | Forgot Password" />
             <ForgotPassword />
             {userToken && isAdmin && <Navigate to="/admin/dashboard" />}
             {userToken && isVendor && <Navigate to="/vendor/dashboard" />}
             {userToken && isBuyer && <Navigate to="/" />}
-          </>
+          </MainLayout>
         }
       />
 
       <Route
         path="/reset-password"
         element={
-          <>
+          <MainLayout>
             <PageTitle title="Knights Store | Reset Password" />
             <ResetPassword />
             {userToken && isAdmin && <Navigate to="/admin/dashboard" />}
             {userToken && isVendor && <Navigate to="/vendor/dashboard" />}
             {userToken && isBuyer && <Navigate to="/" />}
-          </>
+          </MainLayout>
         }
       />
 
       <Route
         path="/login"
         element={
-          <>
+          <MainLayout>
             <PageTitle title="Knights Store | Login" />
             {userToken && isAdmin && <Navigate to="/admin/dashboard" />}
             {userToken && isVendor && <Navigate to="/vendor/dashboard" />}
             {userToken && isBuyer && <Navigate to="/" />}
             {!userToken && <Login />}
-          </>
+          </MainLayout>
         }
       />
       <Route
         path="/login/google-auth"
         element={
-          <>
+          <MainLayout>
             <PageTitle title="Knights Store | Login" />
             {userToken && isAdmin && <Navigate to="/admin/dashboard" />}
             {userToken && isVendor && <Navigate to="/vendor/dashboard" />}
             {userToken && isBuyer && <Navigate to="/" />}
             {!userToken && <GoogleLoginSuccess />}
-          </>
+          </MainLayout>
         }
       />
       <Route
         path="/suspended-account"
         element={
-          <>
+          <MainLayout>
             <PageTitle title="Knights Store | Suspended Account" />
             {userToken && <Navigate to="/" />}
             <SuspendedAccount />
-          </>
+          </MainLayout>
         }
       />
       <Route
         path="/otp-verficaton"
         element={
-          <>
+          <MainLayout>
             <PageTitle title="Knights Store | Verify OTP" />
             <OtpPage />
             {userToken && isAdmin && <Navigate to="/admin/dashboard" />}
             {userToken && isVendor && <Navigate to="/vendor/dashboard" />}
             {userToken && isBuyer && <Navigate to="/" />}
-          </>
+          </MainLayout>
         }
       />
+      <Route path="/vendor/dashboard" element={<DashboardLayout />}>
+        <Route path="products" element={<DashboarInnerLayout />}>
+          <Route path="" element={<DashboardProducts />} />
+          <Route path=":id" element={<DashboardSingleProduct />} />
+          <Route path="new" element={<DashboardNewProducts />} />
+        </Route>
+      </Route>
     </Routes>
   );
 };
