@@ -20,6 +20,7 @@ import DashboardProducts from '../components/Products/DashboardProducts/Dashboar
 import DashboardSingleProduct from '../components/Products/DashboardSingleProduct/DashboardSingleProduct';
 import DashboardNewProducts from '../components/Products/DashboardNewProducts/DashboardNewProducts';
 import MainLayout from '../layout/MainLayout';
+import SearchPage from '../pages/searchPage';
 
 const Router = () => {
   const { userToken } = useSelector((state: RootState) => state.auth);
@@ -142,6 +143,16 @@ const Router = () => {
           <Route path="new" element={<DashboardNewProducts />} />
         </Route>
       </Route>
+
+      <Route
+        path="/search"
+        element={
+          <MainLayout>
+            <PageTitle title="Knights Store | Search" />
+            <SearchPage />
+          </MainLayout>
+        }
+      />
     </Routes>
   );
 };

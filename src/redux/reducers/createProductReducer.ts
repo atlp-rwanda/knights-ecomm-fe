@@ -1,6 +1,6 @@
 import { ProductActionTypes, ProductActions } from '../types/productTypes';
 
-interface ProductState {
+export interface ProductState {
   loading: boolean;
   product: any | null; // Adjust according to your product data type
   error: string | null;

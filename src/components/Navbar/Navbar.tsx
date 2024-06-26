@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import knightsLogo from '../../images/logo.png';
 import cart from '../../images/cart.png';
 import user from '../../images/user.png';
@@ -12,6 +13,8 @@ import DesktopMenu from '../Menu/DesktopMenu';
 function Navbar() {
   const { userToken } = useSelector((state: RootState) => state.auth);
   const [showDesktopMenu, setShowDesktopMenu] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     setShowDesktopMenu(false);
@@ -19,6 +22,16 @@ function Navbar() {
 
   const desktopMenuHandler = () => {
     setShowDesktopMenu((prevData) => !prevData);
+  };
+
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+    }
   };
 
   return (
@@ -35,7 +48,11 @@ function Navbar() {
         <input
           className="w-full h-[100%] border-none outline-none bg-white text-grey2 text-base placeholder-grey2"
           type="text"
+          id="searchInput"
           placeholder="search for anything"
+          value={searchTerm}
+          onChange={handleSearchInputChange}
+          onKeyDown={handleSearchSubmit}
         />
         <Search strokeWidth={1.5} className="text-orange" />
       </div>

@@ -9,6 +9,7 @@ import passwordReducer from './passwordResetReducer';
 import { productCreateReducer } from './createProductReducer';
 import getSingleProductReducer from './getSingleProductReducer';
 import productSliceReducer from './getVendorProductsReducer';
+import searchReducer from '../reducers/SearchReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   productCreate: productCreateReducer,
   getVendorProduct: productSliceReducer,
   singleProduct: getSingleProductReducer,
-  password: passwordReducer
+  password: passwordReducer,
+  search: searchReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
