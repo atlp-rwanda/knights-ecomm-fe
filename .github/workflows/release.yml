@@ -1,0 +1,58 @@
+name: knights-ecomm-fe Release
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Bump Version
+        id: bump_version
+        run: |
+          NEW_VERSION=$(npm version minor --no-git-tag-version)
+          echo "New version is $NEW_VERSION"
+          echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+
+      - name: Zip dist folder
+        run: |
+          zip -r dist-${{ env.NEW_VERSION }}.zip ./dist
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.NEW_VERSION }}
+          release_name: Release ${{ env.NEW_VERSION }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist-${{ env.NEW_VERSION }}.zip
+          asset_name: dist-${{ env.NEW_VERSION }}.zip
+          asset_content_type: application/zip
