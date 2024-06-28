@@ -12,10 +12,10 @@ describe('App', () => {
       </Router>
     );
 
-    const welcomePageElement = screen.getByText('Welcome to Knights ecommerce');
-    expect(welcomePageElement).toBeInTheDocument();
+    const landingPageElement = screen.getByText('Explore our collections');
+    expect(landingPageElement).toBeInTheDocument();
 
-    const paragraphElement = screen.getByText('Loading...');
-    expect(paragraphElement).toBeInTheDocument();
+    const categoryElement = screen.getByText('Electronic...');
+    expect(categoryElement).toBeInTheDocument();
   });
 });
