@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
-import WelcomePage from '../pages/welcomePage';
 import Register from '../pages/Authentication/Register';
 import RegisterVendor from '../pages/Authentication/RegisterVendor';
 import VerifyEmail from '../pages/Authentication/VerifyEmail';
@@ -20,6 +19,7 @@ import DashboardProducts from '../components/Products/DashboardProducts/Dashboar
 import DashboardSingleProduct from '../components/Products/DashboardSingleProduct/DashboardSingleProduct';
 import DashboardNewProducts from '../components/Products/DashboardNewProducts/DashboardNewProducts';
 import MainLayout from '../layout/MainLayout';
+import Home from '../pages/LandingPage/Home';
 import SearchPage from '../pages/searchPage';
 
 const Router = () => {
@@ -32,7 +32,15 @@ const Router = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<WelcomePage />} />
+      <Route
+        path="/"
+        element={
+          <MainLayout>
+            <PageTitle title="Knights Store | Register" />
+            <Home />
+          </MainLayout>
+        }
+      />
 
       <Route
         path="/register"

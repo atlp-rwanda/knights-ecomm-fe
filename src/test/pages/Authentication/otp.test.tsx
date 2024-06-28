@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { Provider } from 'react-redux';
-import store from '../../redux/store';
-import Otp from '../../pages/Authentication/OtpPage';
+import store from '../../../redux/store';
+import Otp from '../../../pages/Authentication/OtpPage';
 
 describe('OtpPage', () => {
   it('Renders the OtpPage component with all expected elements', () => {
@@ -20,7 +20,6 @@ describe('OtpPage', () => {
       selector: 'p'
     });
     expect(descriptionElement).toBeInTheDocument();
-
     // Verify OTP input fields
     const otpInputs = screen.getAllByRole('textbox');
     expect(otpInputs).toHaveLength(6);
@@ -98,8 +97,7 @@ describe('OtpPage handleChange', () => {
 
     expect(otpInput).toHaveValue('');
 
-    // Simulate entering more than one digit
     fireEvent.change(otpInput, { target: { value: '12' } });
-    expect(otpInput).toHaveValue(''); // Expect value to remain empty
+    expect(otpInput).toHaveValue('');
   });
 });

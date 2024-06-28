@@ -2,7 +2,7 @@ import { searchProducts } from '../../../redux/actions/searchAction';
 import axios from 'axios';
 import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from '../../../redux/reducers/SearchReducer';
-import { SearchProductParams, SearchResponse } from '../../../types/searchTypes';
+import { SearchProductParams } from '../../../types/searchTypes';
 
 vi.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -15,58 +15,56 @@ const store = configureStore({
 
 describe('Search Products Actions', () => {
   it('should handle searchProducts success', async () => {
-    const responseData: SearchResponse = {
+    const responseData = {
       status: 'success',
-      data: {
-        products: [
-          {
+      data: [
+        {
+          id: '1',
+          name: 'Test Product',
+          newPrice: '100',
+          vendor: {
             id: '1',
-            name: 'Test Product',
-            newPrice: '100',
-            vendor: {
-              id: '1',
-              firstName: 'John',
-              lastName: 'Doe',
-              email: '',
-              phoneNumber: '',
-              photoUrl: null
-            },
-            images: ['image1.jpg'],
-            description: '',
-            oldPrice: '23',
-            expirationDate: '',
-            quantity: 0,
-            isAvailable: true,
-            createdAt: '',
-            updatedAt: '',
-            categories: [],
-            feedbacks: []
+            firstName: 'John',
+            lastName: 'Doe',
+            email: '',
+            phoneNumber: '',
+            photoUrl: null
           },
-          {
-            id: '2',
-            name: 'Test Product 3',
-            newPrice: '100',
-            vendor: {
-              id: '1',
-              firstName: 'John',
-              lastName: 'Doe',
-              email: '',
-              phoneNumber: '',
-              photoUrl: null
-            },
-            images: ['image1.jpg'],
-            description: '',
-            oldPrice: '0',
-            expirationDate: '',
-            quantity: 0,
-            isAvailable: true,
-            createdAt: '',
-            updatedAt: '',
-            categories: [],
-            feedbacks: []
-          }
-        ]
-      },
+          images: ['image1.jpg'],
+          description: '',
+          oldPrice: '23',
+          expirationDate: '',
+          quantity: 0,
+          isAvailable: true,
+          createdAt: '',
+          updatedAt: '',
+          categories: [],
+          feedbacks: []
+        },
+        {
+          id: '2',
+          name: 'Test Product 3',
+          newPrice: '100',
+          vendor: {
+            id: '1',
+            firstName: 'John',
+            lastName: 'Doe',
+            email: '',
+            phoneNumber: '',
+            photoUrl: null
+          },
+          images: ['image1.jpg'],
+          description: '',
+          oldPrice: '0',
+          expirationDate: '',
+          quantity: 0,
+          isAvailable: true,
+          createdAt: '',
+          updatedAt: '',
+          categories: [],
+          feedbacks: []
+        }
+      ],
       pagination: {
         totalItems: 10,
         currentPage: 1,

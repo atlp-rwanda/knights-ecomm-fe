@@ -9,6 +9,8 @@ import passwordReducer from './passwordResetReducer';
 import { productCreateReducer } from './createProductReducer';
 import getSingleProductReducer from './getSingleProductReducer';
 import productSliceReducer from './getVendorProductsReducer';
+import categoryReducer from './categoryReducer';
+import bannerReducer from './bannerReducer';
 import searchReducer from '../reducers/SearchReducer';
 
 const rootReducer = combineReducers({
@@ -22,6 +24,8 @@ const rootReducer = combineReducers({
   getVendorProduct: productSliceReducer,
   singleProduct: getSingleProductReducer,
   password: passwordReducer,
+  category: categoryReducer,
+  banner: bannerReducer,
   search: searchReducer
 });
 

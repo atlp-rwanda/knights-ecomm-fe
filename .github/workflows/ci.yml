@@ -1,6 +1,6 @@
 name: knights-ecomm-fe CI
 
-on: 
+on:
   push:
   pull_request:
 
@@ -37,4 +37,3 @@ jobs:
         uses: coverallsapp/github-action@v2.2.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
