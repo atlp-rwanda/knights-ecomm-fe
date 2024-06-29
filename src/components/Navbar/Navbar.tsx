@@ -18,6 +18,7 @@ function Navbar() {
   const [showDesktopMenu, setShowDesktopMenu] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,25 +29,42 @@ function Navbar() {
     setShowDesktopMenu((prevData) => !prevData);
   };
 
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+    }
+  };
+
   return (
     <nav
       className={`relative z-50 w-full min-h-[10vh] h-auto flex items-center ${userToken ? 'justify-center flex-col gap-4' : 'justify-between'} xmd:flex-row xmd:justify-between bg-white px-6 lg:px-12 py-5 sticky top-0 shadow-navbar text-baseBlack`}
       data-testid="navbar"
     >
       <h1
+        data-testid="homePage"
         onClick={() => {
           navigate('/');
         }}
         className="cursor-pointer flex items-center justify-start gap-x-2 text-primary capitalize font-medium text-xl"
       >
-        <img src={knightsLogo} alt="" />
+        <img src={knightsLogo} alt="Knights Store Logo" />
         KNIGHTS STORE
       </h1>
 
       {!userToken && (
         <div className="xmd:hidden flex gap-5">
           <Search strokeWidth={1.5} className="w-10 h-9 text-black" />
-          <img onClick={() => setShowMenu((prevState) => !prevState)} src={menuIcon} className="w-9 h-9" alt="" />
+          <img
+            onClick={() => setShowMenu((prevState) => !prevState)}
+            src={menuIcon}
+            className="w-9 h-9"
+            alt="Menu Icon"
+            data-testid="menuIcon"
+          />
         </div>
       )}
 
@@ -54,23 +72,30 @@ function Navbar() {
         <div className="xmd:hidden flex justify-between w-[100%]">
           <Search strokeWidth={1.5} className="w-[25px] h-[25px] text-black" />
           <a href="/notification" className="relative cursor-pointer">
-            <img src={notificationBell} className="w-[25px] h-[25px]" alt="" />
+            <img src={notificationBell} className="w-[25px] h-[25px]" alt="Notification Bell" />
             <span className="absolute min-w-5 h-5 top-1 right-[14px] mt-[-10px] mr-[-15px] bg-orange text-white text-xs flex items-center justify-center rounded-full leading-none p-1">
               0
             </span>
           </a>
           <a href="/cart" className="relative cursor-pointer">
-            <img src={cart} alt="" className="w-[25px] h-[25px]" />
+            <img src={cart} alt="Cart Icon" className="w-[25px] h-[25px]" />
             <span className="absolute min-w-5 h5 top-1 right-[6px] mt-[-10px] mr-[-15px] bg-orange text-white text-xs flex items-center justify-center rounded-full leading-none p-1">
               0
             </span>
           </a>
-          <img src={user} onClick={desktopMenuHandler} alt="User-Icon" className="w-[25px] h-[25px]" />
+          <img
+            src={user}
+            onClick={desktopMenuHandler}
+            alt="User Icon"
+            className="w-[25px] h-[25px]"
+            data-testid="userIcon"
+          />
           <img
             onClick={() => setShowMenu((prevState) => !prevState)}
             src={menuIcon}
             className="w-[25px] h-[25px]"
-            alt=""
+            alt="Menu Icon"
+            data-testid="menuIcon"
           />
         </div>
       )}
@@ -78,16 +103,17 @@ function Navbar() {
       {showMenu && (
         <div
           className={`absolute ${userToken ? 'top-32' : 'top-20'} left-0 w-[100%] bg-slate-100 h-[500px] p-6 flex flex-col gap-6`}
+          data-testid="mobileMenu"
         >
           <div className={`flex ${userToken ? 'justify-end' : 'justify-between'}`}>
             {!userToken && (
               <div onClick={() => setShowMenu(false)}>
                 <Link to="/login">
-                  <Login />
+                  <Login data-testid="loginLink" />
                 </Link>
               </div>
             )}
-            <img onClick={() => setShowMenu(false)} src={closeIcon} alt="" />
+            <img onClick={() => setShowMenu(false)} src={closeIcon} alt="Close Icon" />
           </div>
           <div className="flex flex-col gap-3 items-center">
             <CategoriesMenu setShowMenu={setShowMenu} />
@@ -99,34 +125,39 @@ function Navbar() {
         <input
           className="w-full h-[100%] border-none outline-none bg-white text-grey2 text-base placeholder-grey2"
           type="text"
+          id="searchInput"
           placeholder="search for anything"
+          value={searchTerm}
+          onChange={handleSearchInputChange}
+          onKeyDown={handleSearchSubmit}
+          data-testid="searchInput"
         />
         <Search strokeWidth={1.5} className="text-orange" />
       </div>
 
       <div className="hidden xmd:flex items-center justify-end sm:gap-x-5 lg:gap-x-10">
         {!userToken && (
-          <Link to="/login">
+          <Link to="/login" data-testid="loginLink">
             <Login />
           </Link>
         )}
         {userToken && (
           <a href="/notification" className="relative cursor-pointer">
-            <img src={notificationBell} alt="" className="w-7 h-7" />
+            <img src={notificationBell} alt="Notification Bell" className="w-7 h-7" />
             <span className="absolute min-w-5 h-5 top-1 right-[12px] mt-[-10px] mr-[-15px] bg-orange text-white text-sm flex items-center justify-center rounded-full leading-none p-1">
               0
             </span>
           </a>
         )}
         <a href="/cart" className="relative cursor-pointer">
-          <img src={cart} alt="" className="w-7 h-7" />
+          <img src={cart} alt="Cart Icon" className="w-7 h-7" />
           <span className="absolute min-w-5 h-5 top-1 right-[5px] mt-[-10px] mr-[-15px] bg-orange text-white text-sm flex items-center justify-center rounded-full leading-none p-1">
             0
           </span>
         </a>
         {userToken && (
-          <div onClick={desktopMenuHandler} className="relative cursor-pointer">
-            <img src={user} alt="User-Icon" className="w-7 h-7" />
+          <div onClick={desktopMenuHandler} className="relative cursor-pointer" data-testid="desktopMenuIcon">
+            <img src={user} alt="User Icon" className="w-7 h-7" />
           </div>
         )}
       </div>
