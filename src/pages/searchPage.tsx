@@ -23,7 +23,13 @@ const SearchResultPage = () => {
   useEffect(() => {
     if (searchTerm) {
       dispatch(
-        searchProducts({ name: searchTerm, sortBy: 'name', sortOrder: 'ASC', page: currentPage, limit: itemsPerPage })
+        searchProducts({
+          name: searchTerm,
+          sortBy: 'name',
+          sortOrder: 'ASC',
+          page: currentPage,
+          limit: itemsPerPage
+        })
       );
     }
   }, [dispatch, searchTerm, currentPage, itemsPerPage]);

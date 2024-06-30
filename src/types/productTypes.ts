@@ -1,3 +1,5 @@
+import { Coupon } from './CouponTypes';
+
 export interface Product {
   id: string;
   name: string;
@@ -37,4 +39,16 @@ export interface VendorProduct {
   data: {
     products: Product[];
   };
+}
+export interface ProductState {
+  products: ProductsResponse | null;
+  loading: boolean;
+  message: string;
+  coupons: Coupon[];
+  error: string | null;
+}
+export interface SingleProductState {
+  loading: boolean;
+  product: Product | null;
+  error: string | null;
 }
