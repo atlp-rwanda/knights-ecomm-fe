@@ -34,6 +34,7 @@ const DashboardSingleProduct: React.FC = () => {
     duration: 3000,
     onClose: () => setShowPopup(false)
   });
+
   useEffect(() => {
     const decoded: any = decodedToken();
     if (!decoded && app_env) {
@@ -42,6 +43,7 @@ const DashboardSingleProduct: React.FC = () => {
     }
     setTokenDecoded(decoded);
   }, [app_env]);
+
   useEffect(() => {
     if (id) {
       dispatch(fetchSingleProduct(id));

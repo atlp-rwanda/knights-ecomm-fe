@@ -1,6 +1,7 @@
 import { Coupon } from './CouponTypes';
 
 export interface Product {
+  [x: string]: ReactNode;
   id: string;
   name: string;
   description: string;

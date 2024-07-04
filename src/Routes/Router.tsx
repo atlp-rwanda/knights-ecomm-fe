@@ -21,6 +21,7 @@ import DashboardNewProducts from '../components/Products/DashboardNewProducts/Da
 import MainLayout from '../layout/MainLayout';
 import Home from '../pages/LandingPage/Home';
 import SearchPage from '../pages/searchPage';
+import ClientSingleProductView from '../pages/ClientSingleProduct/SubmitFeedback';
 
 const Router = () => {
   const { userToken } = useSelector((state: RootState) => state.auth);
@@ -158,6 +159,16 @@ const Router = () => {
           <MainLayout>
             <PageTitle title="Knights Store | Search" />
             <SearchPage />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/ClientSingleProduct/:id"
+        element={
+          <MainLayout>
+            <PageTitle title="Knights Store | Client Single Product" />
+            <ClientSingleProductView />
           </MainLayout>
         }
       />

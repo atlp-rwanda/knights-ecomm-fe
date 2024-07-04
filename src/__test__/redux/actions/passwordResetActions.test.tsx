@@ -2,6 +2,7 @@ import { requestPasswordReset, resetPassword } from '../../../redux/actions/pass
 import axios from 'axios';
 import { configureStore } from '@reduxjs/toolkit';
 import passwordReducer, { resetState } from '../../../redux/reducers/passwordResetReducer';
+import { vi } from 'vitest';
 
 vi.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;

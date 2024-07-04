@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { searchProducts } from '../../../redux/actions/searchAction';
 import searchReducer from '../../../redux/reducers/SearchReducer';
+import { vi } from 'vitest';
 
 vi.mock('axios');
 
