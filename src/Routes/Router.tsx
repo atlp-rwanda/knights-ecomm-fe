@@ -21,10 +21,13 @@ import DashboardNewProducts from '../components/Products/DashboardNewProducts/Da
 import MainLayout from '../layout/MainLayout';
 import Home from '../pages/LandingPage/Home';
 import SearchPage from '../pages/searchPage';
+import SingleProduct from '../components/SingleProduct/SingleProduct';
+import Cart from '../components/Cart/Cart';
 import DashboardEditProducts from '../components/Products/DashboardEditProducts/DashboardEditProducts';
 import WishlistPage from '../pages/WishlistPage/WishlistPage';
 import { setOnWishlistPage } from '../redux/reducers/wishlistReducer';
 import { useLocation } from 'react-router-dom';
+import Payment from '../components/Checkout/checkout';
 
 const Router = () => {
   const { userToken } = useSelector((state: RootState) => state.auth);
@@ -185,6 +188,46 @@ const Router = () => {
           <MainLayout>
             <PageTitle title="Knights Store | Search" />
             <SearchPage />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/product/:id"
+        element={
+          <MainLayout>
+            <PageTitle title="Knights Store | View Product " />
+            <SingleProduct />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/cart"
+        element={
+          <MainLayout>
+            <PageTitle title="Knights Store | Cart" />
+            <Cart />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/checkout"
+        element={
+          <MainLayout>
+            <PageTitle title="Knights Store | Payment" />
+            <Payment />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/completion"
+        element={
+          <MainLayout>
+            <PageTitle title="Knights Store | Payment sucessfull" />
+            <div>
+              <h1>create order </h1>
+              <p>Form to enter addrres </p>
+            </div>
           </MainLayout>
         }
       />
