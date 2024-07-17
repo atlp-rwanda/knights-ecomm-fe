@@ -169,6 +169,7 @@ function Users() {
               </div>
             )}
           </div>
+
           <div className="h-full w-full bg-white border-[1px] border-[#D1D1D1] text-primary items-center sm:items-start justify-center py-2 sm:py-1 px-5 xmd:px-14 flex flex-col gap-1 rounded-xl">
             <p className="font-semibold text-[16px]">Total Buyers</p>
             {loading ? (
