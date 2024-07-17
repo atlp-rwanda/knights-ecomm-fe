@@ -25,6 +25,8 @@ describe('DashboardSideBar', () => {
       expect(screen.getByText('Products')).toBeInTheDocument();
       expect(screen.getByText('Account')).toBeInTheDocument();
       expect(screen.getByText('Logout')).toBeInTheDocument();
+      expect(screen.queryByText('Users')).not.toBeInTheDocument();
+      expect(screen.queryByText('Transactions')).not.toBeInTheDocument();
     });
   });
 });

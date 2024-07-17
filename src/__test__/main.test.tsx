@@ -1,26 +1,18 @@
-// src/index.test.tsx
-
 import React from 'react';
-import { render } from '@testing-library/react';
-import App from '../App';
+import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { describe, it } from 'vitest';
+import App from '../App'; // Assuming App is the top-level component
+
 describe('Root Component', () => {
   it('renders without crashing', () => {
-    const div = document.createElement('div');
-    document.body.appendChild(div);
-
     render(
       <React.StrictMode>
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </React.StrictMode>,
-      {
-        container: div
-      }
+      </React.StrictMode>
     );
 
-    expect(div.querySelector('div')).toBeInTheDocument();
+    expect(screen.getByTestId('app-component')).toBeInTheDocument(); // Use the correct data-testid
   });
 });

@@ -5,7 +5,7 @@ import two from '/3.svg';
 import three from '/Component 3.svg';
 import f from '/user-square.svg';
 import dashboardIcon from '/Dashboard.svg';
-import { CircleX } from 'lucide-react';
+import { BadgeDollarSign, CircleX } from 'lucide-react';
 import userIcon from '../../../assets/Enquiry.svg';
 import { useJwt } from 'react-jwt';
 import { useSelector } from 'react-redux';
@@ -82,6 +82,17 @@ const DashboardSideBar: React.FC<DashboardSideBarProps> = ({ openNav, setOpenNav
             }
           >
             <img src={userIcon} alt="Products" /> Users
+          </NavLink>
+        )}
+        {decodedToken?.role.toLowerCase() === 'admin' && (
+          <NavLink
+            to="transaction"
+            className={({ isActive }) =>
+              `flex gap-4 p-2 w-full rounded transition-all duration-300 ease-in-out ${isActive ? 'bg-[#070f2b] text-white' : ''}`
+            }
+          >
+            <BadgeDollarSign />
+            Transactions
           </NavLink>
         )}
       </div>
