@@ -19,6 +19,11 @@ import wishlistReducer from './wishlistReducer';
 import buyerOrdersReducer from './buyerOrdersReducer';
 import chatMessageReducer from './chatMessagesReducer';
 import createOrderReducer from './createOrderReducer';
+import profileReducer from './profileReducer';
+import notificationReducer from './notification';
+import vendorOrdersReducer from './vendorOrdersReducer';
+import orderStatsReducer from './orderStatsReducer';
+import adminOrdersReducer from './adminOrdersReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -40,7 +45,12 @@ const rootReducer = combineReducers({
   wishlist: wishlistReducer,
   createOrder: createOrderReducer,
   buyerOrders: buyerOrdersReducer,
-  chat: chatMessageReducer
+  vendorOrders: vendorOrdersReducer,
+  adminOrders: adminOrdersReducer,
+  orderStats: orderStatsReducer,
+  chat: chatMessageReducer,
+  profile: profileReducer,
+  notification: notificationReducer
 });
 export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

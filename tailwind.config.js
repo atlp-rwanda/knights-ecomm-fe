@@ -61,7 +61,8 @@ export default {
       animation: {
         'spin-slow': 'spin 1.5s linear infinite',
         slideInToLeft: 'slideInToLeft 1.5s ease-out forwards',
-        slideInFromTop: 'slideInFromTop .3s ease-out forwards',
+        slideInFromTop: 'slideInFromTop 0.5s ease-out forwards',
+        slideOutFromBottom: 'slideOutFromBottom 0.5s ease-out forwards',
         fadeInAnimation: 'fadeInAnimation 1s ease-out forwards'
       },
       keyframes: {
@@ -73,13 +74,20 @@ export default {
           '0%': { transform: 'translateY(-10%)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' }
         },
+        slideOutFromBottom: {
+          '0%': { transform: 'translateY(0)', opacity: '1' },
+          '100%': { transform: 'translateY(-10%)', opacity: '0' }
+        },
         fadeInAnimation: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' }
         }
       },
       screens: {
-        xmd: '700px'
+        xsm: '450px',
+        sm: '610px',
+        xmd: '700px',
+        xlg: '1210px'
       }
     }
   },
