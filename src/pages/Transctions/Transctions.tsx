@@ -3,7 +3,6 @@ import axios from 'axios';
 import { PropagateLoader } from 'react-spinners';
 import { ApiResponse } from '../../types/paymentTypes';
 
-
 const Transactions = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<ApiResponse | null>(null);
